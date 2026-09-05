@@ -56,7 +56,7 @@ CREATE TABLE bronze.erp_category (
     maintenance VARCHAR(50)
 );
 
---Bulk Insert in Postgres:
+--Bulk Insert in PostgreSQL using "PSQL Tool" instead of the "Query Tool" to avoid "permission" issue:
 
 \copy bronze.crm_customer_info FROM '[file_path]...cust_info.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
