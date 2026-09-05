@@ -68,31 +68,6 @@ The project follows a Medallion Architecture consisting of Bronze, Silver, and G
 
 ---
 
-# 📂 Repository Structure
-data-warehouse-project/
-│
-├── datasets/                           # Source ERP and CRM datasets
-│
-├── docs/                               # Project documentation and diagrams
-│   ├── etl.drawio                      # ETL approaches and methods
-│   ├── data_architecture.drawio        # Overall data architecture
-│   ├── data_catalog.md                 # Data fields and metadata
-│   ├── data_flow.drawio                # End-to-end data flow
-│   ├── data_models.drawio              # Analytical data models
-│   ├── naming-conventions.md           # Naming standards
-│
-├── scripts/                            # SQL ETL and transformation scripts
-│   ├── bronze/                         # Raw data ingestion
-│   ├── silver/                         # Data cleansing and transformation
-│   ├── gold/                           # Analytical models and business logic
-│
-├── tests/                              # Data quality and validation scripts
-│
-├── README.md                           # Project documentation
-├── LICENSE                             # MIT License
-├── .gitignore                          # Git ignore rules
-└── requirements.txt                    # Project dependencies
-
 # 🛡️ License
 
 This project is licensed under the MIT License.
