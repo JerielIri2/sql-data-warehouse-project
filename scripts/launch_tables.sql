@@ -56,19 +56,84 @@ CREATE TABLE bronze.erp_category (
     maintenance VARCHAR(50)
 );
 
---Bulk Insert in PostgreSQL using "PSQL Tool" instead of the "Query Tool" to avoid "permission" issue:
+/*
+=============================================================
+Load Bronze Layer
+=============================================================
+Purpose:
+    Truncates and reloads all Bronze tables from the source CSV
+    files, providing a fresh copy of the raw source data.
+*/
+CREATE OR REPLACE PROCEDURE bronze.load_bronze AS
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RAISE NOTICE '===============================================';
+    RAISE NOTICE 'Loading Bronze Layer';
+    RAISE NOTICE '===============================================';
 
+    RAISE NOTICE '-----------------------------------------------';
+    RAISE NOTICE 'Loading CRM Tables';
+    RAISE NOTICE '-----------------------------------------------';
+    TRUNCATE TABLE bronze.crm_customer_info;
+    COPY bronze.crm_customer_info 
+    FROM '[file_path]...cust_info.csv' 
+    WITH (FORMAT CSV, HEADER, DELIMITER ',');
+    
+    TRUNCATE TABLE bronze.crm_product_info;
+    COPY bronze.crm_product_info 
+    FROM '[file_path]...prd_info.csv' 
+    WITH (FORMAT CSV, HEADER, DELIMITER ',');
+    
+    TRUNCATE TABLE bronze.crm_sales_details;
+    COPY bronze.crm_sales_details 
+    FROM '[file_path]...sales_details.csv' 
+    WITH (FORMAT CSV, HEADER, DELIMITER ',');
+    
+    TRUNCATE TABLE bronze.erp_customer;
+    COPY bronze.erp_customer 
+    FROM '[file_path]...CUST_AZ12.csv' 
+    WITH (FORMAT CSV, HEADER, DELIMITER ',');
+    
+    TRUNCATE TABLE bronze.erp_location;
+    COPY bronze.erp_location 
+    FROM '[file_path]...LOC_A101.csv' 
+    WITH (FORMAT CSV, HEADER, DELIMITER ',');
+    
+    TRUNCATE TABLE bronze.erp_category;
+    COPY bronze.erp_category 
+    FROM '[file_path]...PX_CAT_G1V2.csv' 
+    WITH (FORMAT CSV, HEADER, DELIMITER ',');
+END
+$$;
+    
+-- Using "PSQL Tool" instead of the "Query Tool" to solve "permission" issues:
+
+TRUNCATE TABLE bronze.crm_customer_info;
 \copy bronze.crm_customer_info FROM '[file_path]...cust_info.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
+TRUNCATE TABLE bronze.crm_product_info;
 \copy bronze.crm_product_info FROM '[file_path]...prd_info.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
+TRUNCATE TABLE bronze.crm_sales_details;
 \copy bronze.crm_sales_details FROM '[file_path]...sales_details.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
+TRUNCATE TABLE bronze.erp_customer;
 \copy bronze.erp_customer FROM '[file_path]...CUST_AZ12.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
+TRUNCATE TABLE bronze.erp_location;
 \copy bronze.erp_location FROM '[file_path]...LOC_A101.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
 
+TRUNCATE TABLE bronze.erp_category;
 \copy bronze.erp_category FROM '[file_path]...PX_CAT_G1V2.csv' WITH (FORMAT CSV, HEADER, DELIMITER ',');
+
+
+
+
+
+
+
+
 
 
 
