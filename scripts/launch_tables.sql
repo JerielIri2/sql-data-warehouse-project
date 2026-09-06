@@ -1,4 +1,11 @@
----Create Tables
+/* 
+============================================================= 
+Create Bronze Tables
+============================================================= 
+Purpose: This script recreates tables in the Bronze schema, used to
+redefine the DDL structure on the Bronze tables
+*/
+
 
 DROP TABLE IF EXISTS bronze.crm_customer_info;
 CREATE TABLE bronze.crm_customer_info (
